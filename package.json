@@ -1,0 +1,16 @@
+{
+  "name": "personal-study",
+  "version": "1.0.0",
+  "description": "个人学习成长的记录",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "author": "chengeheng",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/config-conventional": "^17.6.7",
+    "commitlint": "^17.6.7",
+    "husky": "^8.0.3"
+  }
+}
