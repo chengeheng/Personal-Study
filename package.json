@@ -4,13 +4,24 @@
   "description": "个人学习成长的记录",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commit": "git add . && cz-customizable"
   },
   "author": "chengeheng",
   "license": "ISC",
   "devDependencies": {
     "@commitlint/config-conventional": "^17.6.7",
+    "commitizen": "^4.3.0",
     "commitlint": "^17.6.7",
+    "commitlint-config-cz": "^0.13.3",
+    "commitlint-config-git-commit-emoji": "^1.0.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.0.0",
     "husky": "^8.0.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    }
   }
 }
