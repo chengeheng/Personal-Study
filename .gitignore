@@ -1,1 +1,3 @@
 node_modules
+# 子目录的node_modules
+/*/node_modules/
