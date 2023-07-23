@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu } = require("electron");
 const path = require("path");
 
 /**
@@ -16,9 +16,88 @@ const createWindow = () => {
     maxHeight: 800, // 窗口最大高度
     minWidth: 400, // 窗口最小宽度
     minHeight: 400, // 窗口最小高度
-    resizable: false, // 控制窗口大小是否可修改，即是否可缩放
-    // webPreferences: {}
+    // resizable: false, // 控制窗口大小是否可修改，即是否可缩放
+    title: "Electron Title", // 需要html中不设置head的title标签值
+    frame: true, // 用于自定义menu，只保留主体内容，无法拖动, 默认为true
+    // transparent: true, // 创建透明窗体，窗体依旧可点击
+    autoHideMenuBar: true, // window下菜单栏的隐藏
+    icon: "logo.ico", // 设置一个图片路径，可以自定义当前应用的显示图标
+    webPreferences: {
+      // nodeIntegration: true, // 允许渲染进程中使用node环境
+      // contextIsolation: false, // 配合nodeIntegration一起使用
+    },
   });
+
+  // 定义自己需要的菜单项
+  const menuTemp = [
+    {
+      label: "文件",
+      submenu: [
+        { label: "打开文件" },
+        { type: "separator" },
+        { label: "关闭文件夹" },
+        { label: "关于", role: "about" },
+      ],
+    },
+    {
+      label: "角色",
+      submenu: [
+        { label: "复制", role: "copy" },
+        { label: "剪切", role: "cut" },
+        { label: "粘贴", role: "paste" },
+        { label: "最小化", role: "minimize" },
+      ],
+    },
+    {
+      label: "类型",
+      submenu: [
+        { label: "选项1", type: "checkbox" },
+        { label: "选项2", type: "checkbox" },
+        { label: "选项3", type: "checkbox" },
+        { type: "separator" },
+        { label: "item1", type: "radio" },
+        { label: "item2", type: "radio" },
+        { label: "item3", type: "radio" },
+        { label: "windows", type: "submenu", role: "windowMenu" },
+      ],
+    },
+    {
+      label: "其他",
+      submenu: [
+        {
+          label: "打开",
+          icon: "./logo.ico",
+          accelerator: "ctrl+o",
+          click: () => {
+            console.log("open操作执行了");
+          },
+        },
+      ],
+    },
+    {
+      label: "编辑",
+      submenu: [],
+    },
+  ];
+  // mac系统中菜单的第一项必须是应用的名称
+  if (process.platform === "darwin") {
+    menuTemp.unshift({
+      label: app.getName(),
+      submenu: [
+        {
+          label: "Quit",
+          accelerator: "CmdOrCtrl+Q",
+          click() {
+            app.quit();
+          },
+        },
+      ],
+    });
+  }
+  // 利用上述模版生成一个菜单
+  const menu = Menu.buildFromTemplate(menuTemp);
+  // 将上述的自定义菜单添加到应用里
+  Menu.setApplicationMenu(menu);
 
   mainWin.loadFile("index.html");
 
