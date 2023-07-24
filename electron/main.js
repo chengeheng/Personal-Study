@@ -1,5 +1,12 @@
-const { app, BrowserWindow, Menu } = require("electron");
+const { app, BrowserWindow, Menu, ipcMain, dialog } = require("electron");
 const path = require("path");
+
+const handleFileOpen = async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog();
+  if (!canceled) {
+    return filePaths[0];
+  }
+};
 
 /**
  * 01 创建一个窗口
@@ -25,6 +32,7 @@ const createWindow = () => {
     webPreferences: {
       // nodeIntegration: true, // 允许渲染进程中使用node环境
       // contextIsolation: false, // 配合nodeIntegration一起使用
+      preload: path.join(__dirname, "src/preload.js"), // 预加载脚本
     },
   });
 
@@ -66,17 +74,48 @@ const createWindow = () => {
       submenu: [
         {
           label: "打开",
-          icon: "./logo.ico",
+          // icon: "./logo.ico",
           accelerator: "ctrl+o",
           click: () => {
             console.log("open操作执行了");
           },
         },
+        {
+          label: "重新加载",
+          accelerator: "cmd + r",
+          click: () => {
+            mainWin.webContents.reload();
+          },
+        },
+        {
+          label: "打开devtool",
+          accelerator: "option + cmd + i",
+          click: () => {
+            if (mainWin.webContents.isDevToolsOpened()) {
+              mainWin.webContents.closeDevTools();
+            } else {
+              mainWin.webContents.openDevTools();
+            }
+          },
+        },
       ],
     },
     {
-      label: "编辑",
-      submenu: [],
+      label: app.name,
+      submenu: [
+        {
+          label: "增加",
+          click: () => {
+            mainWin.webContents.send("update-counter", 1);
+          },
+        },
+        {
+          label: "减少",
+          click: () => {
+            mainWin.webContents.send("update-counter", -1);
+          },
+        },
+      ],
     },
   ];
   // mac系统中菜单的第一项必须是应用的名称
@@ -99,7 +138,13 @@ const createWindow = () => {
   // 将上述的自定义菜单添加到应用里
   Menu.setApplicationMenu(menu);
 
-  mainWin.loadFile("index.html");
+  ipcMain.on("set-title", (e, title) => {
+    const webContents = e.sender;
+    const win = BrowserWindow.fromWebContents(webContents);
+    win.setTitle(title);
+  });
+
+  mainWin.loadFile("./public/index.html");
 
   mainWin.on("ready-to-show", () => {
     mainWin.show();
@@ -124,6 +169,10 @@ const createWindow = () => {
  */
 app.whenReady().then(() => {
   console.log("01 -> app ready");
+  ipcMain.handle("dialog:openFile", handleFileOpen);
+  ipcMain.on("counter-value", (e, value) => {
+    console.log(value);
+  });
   createWindow();
 
   app.on("activate", () => {
