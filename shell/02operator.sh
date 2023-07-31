@@ -148,3 +148,13 @@ then
 else
     echo "文件不存在"
 fi
+
+# test命令
+num1=100
+num2=200
+if test $[num1] -eq $[num2]
+then
+    echo "相等"
+else
+    echo "不相等"
+fi
