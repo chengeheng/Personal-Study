@@ -1,17 +1,16 @@
 import { useEffect, useRef } from "react";
 import * as PIXI from "pixi.js";
 
+import { actions } from "./utils";
+
+import styles from "./index.module.css";
+
 const app = new PIXI.Application<HTMLCanvasElement>({
   backgroundColor: "pink",
+  // 设置宽高
+  width: 640,
+  height: 360,
 });
-
-const drawRect = () => {
-  const graphics = new PIXI.Graphics();
-  graphics.beginFill(0xffd900, 1);
-  graphics.drawRect(0, 0, 100, 200);
-  graphics.endFill();
-  return graphics;
-};
 
 const Basic = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,16 +19,27 @@ const Basic = () => {
     if (ref.current) {
       ref.current.innerHTML = "";
       ref.current.appendChild(app.view);
-      const rect = drawRect();
-      app.stage.addChild(rect);
 
       return () => {
-        // 清除画布
+        // 清除画布, 传入true的话则删除canvas元素
         app.destroy(true);
       };
     }
   }, []);
-  return <div ref={ref} id="canvas"></div>;
+  return (
+    <div className={styles.main}>
+      <div className={styles.actions}>
+        {actions.map((i) => {
+          return (
+            <button key={i.label} onClick={() => i.fn(app)}>
+              {i.label}
+            </button>
+          );
+        })}
+      </div>
+      <div className={styles.canvas} ref={ref}></div>
+    </div>
+  );
 };
 
 export default Basic;
