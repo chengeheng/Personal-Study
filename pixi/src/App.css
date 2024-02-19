@@ -4,6 +4,10 @@
   flex-direction: column;
 }
 
+.slider {
+  padding: 20px 15px 0;
+}
+
 .slider > button {
   margin-left: 5px;
 }

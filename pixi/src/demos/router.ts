@@ -10,6 +10,10 @@ const routers = [
     title: "extra",
     cmp: lazy(() => import("./extra")),
   },
+  {
+    title: "text",
+    cmp: lazy(() => import("./text")),
+  },
 ];
 
 export default routers;
