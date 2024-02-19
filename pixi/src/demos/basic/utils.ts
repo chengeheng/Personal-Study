@@ -100,6 +100,19 @@ const drawBezierCurveTo = (app: PIXI.Application<HTMLCanvasElement>) => {
   app.stage.addChild(graphics);
 };
 
+const drawShape = (app: PIXI.Application<HTMLCanvasElement>) => {
+  app.stage.removeChildren();
+  const graphics = new PIXI.Graphics();
+  const path = new PIXI.Polygon([50, 50, 100, 100, 150, 50]);
+
+  graphics.beginFill(0xffd900, 1);
+  graphics.lineStyle(4, "#ffd9ff", 1);
+  graphics.drawShape(path);
+  graphics.endFill();
+
+  app.stage.addChild(graphics);
+};
+
 export const actions: {
   label: string;
   fn: (app: PIXI.Application<HTMLCanvasElement>) => void;
@@ -144,5 +157,9 @@ export const actions: {
   {
     label: "bezierCurve",
     fn: drawBezierCurveTo,
+  },
+  {
+    label: "any shape",
+    fn: drawShape,
   },
 ];

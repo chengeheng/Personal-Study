@@ -1791,6 +1791,11 @@
   resolved "https://registry.npmmirror.com/@pixi/filter-noise/-/filter-noise-7.4.0.tgz#f6bd9db0b34fd6f6f0cd8544db55d486770ee6ea"
   integrity sha512-q2+CWODAJO79j0StJ+xakX4D8r8w/RLURRiyG+focTIj1ws/7sdDmDsV+jmeKm6pEktwgA3JYWIKZUnezlGf8g==
 
+"@pixi/graphics-extras@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.npmmirror.com/@pixi/graphics-extras/-/graphics-extras-7.4.0.tgz#b505510996e5ce6f24904ee840dfdde9d73bd632"
+  integrity sha512-uSQx3TLTeIFrNARnIxnOaNZiDAll6bJU53yt+5dSgY1kydd9j/6Pg40F/deyvyu7Sqgz4wPgmrafjLwmD+vgYA==
+
 "@pixi/graphics@7.4.0":
   version "7.4.0"
   resolved "https://registry.npmmirror.com/@pixi/graphics/-/graphics-7.4.0.tgz#d09c63ef4abc11cfcc1db9864179e01b2bc0b2c2"

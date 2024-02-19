@@ -18,7 +18,7 @@ const usePixiApp = () => {
   );
 };
 
-const Basic = () => {
+const Extra = () => {
   const ref = useRef<HTMLDivElement>(null);
   const app = usePixiApp();
 
@@ -49,4 +49,4 @@ const Basic = () => {
   );
 };
 
-export default Basic;
+export default Extra;
