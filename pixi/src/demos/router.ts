@@ -14,6 +14,10 @@ const routers = [
     title: "text",
     cmp: lazy(() => import("./text")),
   },
+  {
+    title: "image",
+    cmp: lazy(() => import("./image")),
+  },
 ];
 
 export default routers;
