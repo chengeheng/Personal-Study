@@ -1,0 +1,13 @@
+.main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.actions > button {
+  margin-right: 5px;
+}
+
+.canvas {
+  margin: 5px 0;
+}
