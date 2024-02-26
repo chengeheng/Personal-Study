@@ -22,7 +22,7 @@ const drawCircle = (app: PIXI.Application<HTMLCanvasElement>) => {
   app.stage.removeChildren();
   const graphics = new PIXI.Graphics();
   graphics.beginFill(0xffd900, 1);
-  graphics.drawCircle(100, 100, 50);
+  graphics.drawCircle(100, 100, 100);
   graphics.endFill();
   app.stage.addChild(graphics);
 };
