@@ -49,7 +49,12 @@ module.exports = {
       name: "👷  ci:       CI related changes",
     },
   ],
-  scopes: [{ name: "electron" }, { name: "shell" }, { name: "pixi" }],
+  scopes: [
+    { name: "electron" },
+    { name: "shell" },
+    { name: "pixi" },
+    { name: "three" },
+  ],
   messages: {
     type: "请选择提交类型(必填)",
     customScope: "请输入文件修改范围(可选)",
